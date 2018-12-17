@@ -1,28 +1,49 @@
 
 #include <mach-o/loader.h>
 #include <mach-o/nlist.h>
+//#include <mach-o/stab.h>
 #include <mach-o/fat.h>
-#include <stdio.h> // printf()
 
+#include <stdlib.h> // malloc()
+#include <stdio.h> 	// printf()
+
+#include "libft.h"
 #include "nm.h"
 
-void	print_symtab_64(uint32_t nsyms, uint32_t symoff, uint32_t stroff, \
-						void *ptr) {
+void	print_symtab_64(symtab_t *tab, size_t size) {
+
+	size_t	i;
+
+	i = 0;
+	while (i < size) {
+		printf("%s\n", tab->n_name);
+		tab = (void *)tab + sizeof(*tab);
+		i++;
+	}
+}
+
+void 	read_symtab_64(struct symtab_command *symcmd, symtab_t *tab, \
+					   void *ptr) {
 
 	struct nlist_64 *symtab;
-	char 			*strtab;
+	uint8_t 		*strtab;
 	size_t			i;
 
-	symtab = ptr + symoff;
-	strtab = ptr + stroff;
+	symtab = ptr + symcmd->symoff;
+	strtab = ptr + symcmd->stroff;
 	i = 0;
-	while (i < nsyms) {
-		printf("%s\n", strtab + symtab[i].n_un.n_strx);
+	while (i < symcmd->nsyms) {
+		tab->n_name = strtab + symtab[i].n_un.n_strx;
+		tab->n_type = symtab[i].n_type;
+		tab->n_sect = symtab[i].n_sect;
+		tab->n_desc = symtab[i].n_desc;
+		tab->n_value = symtab[i].n_value;
+		tab = (void *)tab + sizeof(*tab);
 		++i;
 	}
 }
 
-void	*get_symtab_command_64(uint32_t ncmds, uint32_t lcoff, void *ptr) {
+void	*read_symtab_cmd_64(uint32_t ncmds, uint32_t lcoff, void *ptr) {
 
 	struct load_command	*lc;
 	size_t				i;
@@ -43,17 +64,23 @@ int		handle_64(void *ptr) {
 
     struct mach_header_64	*header;
 	struct symtab_command   *symcmd;
+	symtab_t				*symtab = NULL;
 
     header = (struct mach_header_64 *)ptr;
-	symcmd = get_symtab_command_64(header->ncmds, sizeof(*header), ptr);
-	print_symtab_64(symcmd->nsyms, symcmd->symoff, symcmd->stroff, ptr);
+	symcmd = read_symtab_cmd_64(header->ncmds, sizeof(*header), ptr);
+
+	symtab = malloc(sizeof(symtab_t) * symcmd->nsyms);
+	read_symtab_64(symcmd, symtab, ptr);
+//	sort
+	print_symtab_64(symtab, symcmd->nsyms);
+//	free symtab
 
 	return (0);
 }
 
-int             read_mach_o(const char *file, void *ptr) {
+int		read_mach_o(const char *file, void *ptr) {
     
-    uint32_t    magic_number;
+    uint32_t	magic_number;
     int         ret = 0;
 
     magic_number = *(uint32_t *)ptr;
