@@ -71,7 +71,7 @@ int		handle_64(void *ptr) {
 
 	symtab = malloc(sizeof(symtab_t) * symcmd->nsyms);
 	read_symtab_64(symcmd, symtab, ptr);
-//	sort
+	sort_symtab(symtab, symcmd->nsyms);
 	print_symtab_64(symtab, symcmd->nsyms);
 //	free symtab
 

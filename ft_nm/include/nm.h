@@ -17,4 +17,6 @@ void    error_custom(const char *prefix, const char *str, const char *err);
 void    terminate(const char *prefix, const char *str);
 void    terminate_custom(const char *prefix, const char *str, const char *err);
 
+void 	sort_symtab(struct symtab *arr, size_t n);
+
 #endif /* NM_H */

@@ -23,5 +23,6 @@ target_sources(nm
     PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/src/main.c
         ${CMAKE_CURRENT_LIST_DIR}/src/nm.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/sort.c
         ${CMAKE_CURRENT_LIST_DIR}/src/error.c
 )
