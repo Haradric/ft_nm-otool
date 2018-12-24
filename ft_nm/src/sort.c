@@ -4,11 +4,11 @@
 #include "libft.h"
 #include "nm.h"
 
-int cmp_symtab(struct symtab *a, struct symtab *b) {
+static int 	cmp_symtab(struct symtab *a, struct symtab *b) {
 	return (ft_strcmp((char *)a->n_name, (char *)b->n_name));
 }
 
-void swap(struct symtab *a, struct symtab *b) {
+static void swap(struct symtab *a, struct symtab *b) {
 	struct symtab tmp;
 
 	tmp = *a;
@@ -16,7 +16,7 @@ void swap(struct symtab *a, struct symtab *b) {
 	*b = tmp;
 }
 
-void sort_symtab(struct symtab *arr, size_t n)
+void 		sort_symtab(struct symtab *arr, size_t n)
 {
 	size_t i;
 	size_t j;

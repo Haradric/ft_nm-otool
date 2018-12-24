@@ -33,7 +33,7 @@ static int	nm(int argc, const char *arg) {
 	if (argc != 2)
 		ft_printf("\n%s:\n", arg);
 
-	ret = read_mach_o(arg, ptr);
+	ret = nm_read_file(arg, ptr);
 
 	if (munmap(ptr, statbuf.st_size) == -1)
 		terminate("nm", "munmap");
