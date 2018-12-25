@@ -20,10 +20,12 @@ target_include_directories(nm
 target_sources(nm
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/include/nm.h
+
     PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/src/main.c
         ${CMAKE_CURRENT_LIST_DIR}/src/nm.c
         ${CMAKE_CURRENT_LIST_DIR}/src/sort.c
+		${CMAKE_CURRENT_LIST_DIR}/src/print.c
         ${CMAKE_CURRENT_LIST_DIR}/src/error.c
 		${CMAKE_CURRENT_LIST_DIR}/src/macho32.c
 		${CMAKE_CURRENT_LIST_DIR}/src/macho64.c
