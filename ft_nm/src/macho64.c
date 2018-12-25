@@ -70,7 +70,7 @@ int			nm_macho64(void *ptr) {
 	read_symtab_64(symcmd, symtab, ptr);
 	sort_symtab(symtab, symcmd->nsyms);
 	print_symtab_64(symtab, symcmd->nsyms);
-	//	free symtab
+	free(symtab);
 
 	return (0);
 }
