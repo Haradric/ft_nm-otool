@@ -25,5 +25,6 @@ target_sources(nm
         ${CMAKE_CURRENT_LIST_DIR}/src/nm.c
         ${CMAKE_CURRENT_LIST_DIR}/src/sort.c
         ${CMAKE_CURRENT_LIST_DIR}/src/error.c
+		${CMAKE_CURRENT_LIST_DIR}/src/macho32.c
 		${CMAKE_CURRENT_LIST_DIR}/src/macho64.c
 )
