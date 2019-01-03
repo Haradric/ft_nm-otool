@@ -13,7 +13,7 @@ target_link_libraries(nm
 )
 
 target_include_directories(nm
-    PRIVATE
+    PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/include
 )
 

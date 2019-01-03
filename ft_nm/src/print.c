@@ -2,10 +2,26 @@
 #include <mach-o/loader.h> // LC_SYMTAB symtab_command
 #include <mach-o/nlist.h>  // nist_64
 #include <stddef.h>        // size_t
-#include <stdio.h>         // printf()
 
 #include "libft.h"
 #include "nm.h"
+
+static char *uint64_to_hex(uint64_t n, size_t len) {
+
+    static char buff[17] = {0};
+    const char  *hex = "0123456789abcdef";
+    size_t      i;
+
+    buff[len] = 0;
+    i = len - 1;
+    while (i < 16) {
+        buff[i] = hex[n % 16];
+        n /= 16;
+        i--;
+    }
+
+    return ((char *)&buff);
+}
 
 static char get_type(symtab_t *tab) {
 
@@ -47,8 +63,10 @@ void        print_symtab(symtab_t *tab, size_t size, int width) {
         ext  = tab->n_type & N_EXT;
         if ((tab->n_type & N_TYPE) == N_UNDF)
             ft_printf("%*c %c %s\n", width, ' ', get_type(tab), tab->n_name);
+        else if (type == N_INDR)
+            ft_printf("%*c %c %s (indirect for %s)\n", width, ' ', get_type(tab), tab->n_name, tab->n_name);
         else
-            ft_printf("%0*x %c %s\n", width, (unsigned)tab->n_value, get_type(tab), tab->n_name);
+            ft_printf("%s %c %s\n", uint64_to_hex(tab->n_value, width), get_type(tab), tab->n_name);
         tab = (void *)tab + sizeof(*tab);
         i++;
     }
