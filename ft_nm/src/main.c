@@ -47,14 +47,13 @@ static int nm(int argc, const char *arg) {
 int     main(int argc, char **argv) {
 
     size_t i;
-    int	   ret;
+    int    ret;
 
-//	 a.out if no args
-    if (argc < 2)
-        terminate_custom("error", "nm <input files>", "usage");
+    if (argc == 1)
+        return (nm(argc, "a.out"));
 
-    i = 1;
     ret = 0;
+    i = 1;
     while (i < (size_t)argc) {
 //        process ar archives
 //        https://docs.oracle.com/cd/E36784_01/html/E36873/ar.h-3head.html

@@ -21,7 +21,7 @@ int     nm_read_file(const char *file, void *ptr) {
 
     if (magic_number == MH_MAGIC || magic_number == MH_CIGAM) {
 //        printf("mach-o 32-bit\n");
-        ret =  nm_macho32(ptr);
+        ret = nm_macho32(ptr);
 	} else if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64) {
 //        printf("mach-o 64-bit\n");
         ret = nm_macho64(ptr);
