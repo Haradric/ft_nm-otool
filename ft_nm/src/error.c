@@ -11,24 +11,24 @@ void    error(const char *prefix, const char *str) {
 
     err = strerror(errno);
     write(STDERR_FILENO, prefix, ft_strlen(prefix));
-    write(STDERR_FILENO, ": ", 2);
-    write(STDERR_FILENO, err, ft_strlen(err));
     if (str) {
         write(STDERR_FILENO, ": ", 2);
         write(STDERR_FILENO, str, ft_strlen(str));
     }
+    write(STDERR_FILENO, ": ", 2);
+    write(STDERR_FILENO, err, ft_strlen(err));
     write(STDERR_FILENO, "\n", 1);
 }
 
 void    error_custom(const char *prefix, const char *str, const char *err) {
 
     write(STDERR_FILENO, prefix, ft_strlen(prefix));
-    write(STDERR_FILENO, ": ", 2);
-    write(STDERR_FILENO, err, ft_strlen(err));
     if (str) {
         write(STDERR_FILENO, ": ", 2);
         write(STDERR_FILENO, str, ft_strlen(str));
     }
+    write(STDERR_FILENO, ": ", 2);
+    write(STDERR_FILENO, err, ft_strlen(err));
     write(STDERR_FILENO, "\n", 1);
 }
 
