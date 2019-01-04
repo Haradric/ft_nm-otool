@@ -23,6 +23,9 @@ int     nm_read_file(const char *path, void *ptr);
 int     nm_macho32(void *ptr);
 int     nm_macho64(void *ptr);
 
+void    index_sections(void *ptr, void *lc_start);
+index_t *get_sect_index(void);
+
 void    sort_symtab(struct symtab *arr, size_t n);
 
 void    print_symtab(symtab_t *tab, size_t size, int addr_size);

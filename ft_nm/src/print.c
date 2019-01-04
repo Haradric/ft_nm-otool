@@ -54,14 +54,12 @@ static char get_type(symtab_t *tab) {
 void        print_symtab(symtab_t *tab, size_t size, int width) {
 
     uint8_t type;
-    uint8_t ext;
     size_t  i;
 
     i = 0;
     while (i < size) {
         type = tab->n_type & N_TYPE;
-        ext  = tab->n_type & N_EXT;
-        if ((tab->n_type & N_TYPE) == N_UNDF)
+        if (type == N_UNDF)
             ft_printf("%*c %c %s\n", width, ' ', get_type(tab), tab->n_name);
         else if (type == N_INDR)
             ft_printf("%*c %c %s (indirect for %s)\n", width, ' ', get_type(tab), tab->n_name, tab->n_name);

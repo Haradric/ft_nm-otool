@@ -24,9 +24,10 @@ target_sources(nm
     PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/src/main.c
         ${CMAKE_CURRENT_LIST_DIR}/src/nm.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/sections_index.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/macho32.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/macho64.c
         ${CMAKE_CURRENT_LIST_DIR}/src/sort.c
-		${CMAKE_CURRENT_LIST_DIR}/src/print.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/print.c
         ${CMAKE_CURRENT_LIST_DIR}/src/error.c
-		${CMAKE_CURRENT_LIST_DIR}/src/macho32.c
-		${CMAKE_CURRENT_LIST_DIR}/src/macho64.c
 )
