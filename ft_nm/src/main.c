@@ -5,7 +5,6 @@
 #include <sys/stat.h> // fstat()
 #include <sys/mman.h> // mmap(), munmap()
 #include <unistd.h>   // close()
-//#include <ar.h>
 
 #include "libft.h"
 #include "nm.h"
@@ -55,8 +54,6 @@ int     main(int argc, char **argv) {
     ret = 0;
     i = 1;
     while (i < (size_t)argc) {
-//        process ar archives
-//        https://docs.oracle.com/cd/E36784_01/html/E36873/ar.h-3head.html
         ret += nm(argc, argv[i]);
         ++i;
     }

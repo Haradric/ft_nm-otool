@@ -2,7 +2,7 @@
 #include <mach-o/loader.h> // MH_MAGIC_*, MH_CIGAM_*
 //#include <mach-o/stab.h>
 #include <mach-o/fat.h>    // FAT_MAGIC*, FAT_CIGAM*
-#include <stdio.h> 	       // printf()
+#include <ar.h>
 
 #include "nm.h"
 
@@ -14,17 +14,15 @@ int     nm_read_file(const char *file, void *ptr) {
     magic_number = *(uint32_t *)ptr;
 
     if (magic_number == MH_MAGIC || magic_number == MH_CIGAM) {
-//        printf("mach-o 32-bit\n");
-        index_sections(ptr, ptr + sizeof(struct mach_header));
-        ret = nm_macho32(ptr);
+        ret = handle_macho32(ptr);
 	} else if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64) {
-//        printf("mach-o 64-bit\n");
-        index_sections(ptr, ptr + sizeof(struct mach_header_64));
-        ret = nm_macho64(ptr);
+        ret = handle_macho64(ptr);
     } else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM) {
-        printf("not implemented - fat 32-bit\n");
+        ret = handle_fat32(ptr);
     } else if (magic_number == FAT_MAGIC_64 || magic_number == FAT_CIGAM_64) {
-        printf("not implemented - fat 64-bit\n");
+        ret = handle_fat64(ptr);
+    } else if (magic_number == AR_MAGIC) {
+        ret = handle_ar(ptr);
     } else {
         error_custom("nm", file, "not a valid object file");
         return (1);
