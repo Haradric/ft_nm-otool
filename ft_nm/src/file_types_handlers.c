@@ -3,37 +3,48 @@
 //#include <mach-o/stab.h>
 #include <mach-o/fat.h>    // FAT_MAGIC*, FAT_CIGAM*
 #include <stdio.h>         // printf()
+#include <stdlib.h>        // free()
 
 #include "nm.h"
 
 int handle_macho32(void *ptr) {
 
-    int ret = 0;
+    symtab_t *symtab = NULL;
+    uint32_t symtab_size;
 
 //    printf("mach-o 32-bit\n");
 //    set endianness
     index_sections(((struct mach_header *)ptr)->ncmds, ptr + sizeof(struct mach_header));
-    ret = nm_macho32(ptr);
+    if (!read_symtab_macho32(ptr, &symtab, &symtab_size)) {
+        print_symtab(symtab, symtab_size, 8);
+        free(symtab);
+        return (0);
+    }
 
-    return (ret);
+    return (1);
 }
 
 int handle_macho64(void *ptr) {
 
-    int ret = 0;
+    symtab_t *symtab = NULL;
+    uint32_t symtab_size;
 
 //    printf("mach-o 64-bit\n");
 //    set endianness
     index_sections(((struct mach_header_64 *)ptr)->ncmds, ptr + sizeof(struct mach_header_64));
-    ret = nm_macho64(ptr);
+    if (!read_symtab_macho64(ptr, &symtab, &symtab_size)) {
+        print_symtab(symtab, symtab_size, 16);
+        free(symtab);
+        return (0);
+    }
 
-    return (ret);
+    return (1);
 }
 
 int handle_fat32(void *ptr) {
 
     (void)ptr;
-    printf("not implemented - universal (fat) binary\n");
+    printf("not implemented - universal (fat) binary 32-bit\n");
 
     return (1);
 }
@@ -41,7 +52,7 @@ int handle_fat32(void *ptr) {
 int handle_fat64(void *ptr) {
 
     (void)ptr;
-    printf("not implemented - fat 64-bit\n");
+    printf("not implemented - universal (fat) binary 64-bit\n");
 
     return (1);
 }

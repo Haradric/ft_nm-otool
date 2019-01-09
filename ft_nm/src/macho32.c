@@ -45,18 +45,21 @@ static void *get_symtab_lc(void *ptr) {
     return (NULL); // need to be handled
 }
 
-int nm_macho32(void *ptr) {
+int read_symtab_macho32(void *ptr, symtab_t **symtab, uint32_t *size) {
 
     struct symtab_command *symtab_lc;
-    symtab_t              *symtab;
 
+    *symtab = NULL;
     symtab_lc = get_symtab_lc(ptr);
 
-    symtab = malloc(sizeof(symtab_t) * symtab_lc->nsyms);
-    read_symtab(symtab_lc, symtab, ptr);
-    sort_symtab(symtab, symtab_lc->nsyms);
-    print_symtab(symtab, symtab_lc->nsyms, 8);
-    free(symtab);
+    *symtab = malloc(sizeof(symtab_t) * symtab_lc->nsyms);
+    if (symtab == NULL)
+        return (1);
+
+    read_symtab(symtab_lc, *symtab, ptr);
+    *size = symtab_lc->nsyms;
+
+    sort_symtab(*symtab, *size);
 
     return (0);
 }

@@ -32,8 +32,8 @@ int     handle_fat32(void *ptr);
 int     handle_fat64(void *ptr);
 int     handle_ar(void *ptr);
 
-int     nm_macho32(void *ptr);
-int     nm_macho64(void *ptr);
+int     read_symtab_macho32(void *ptr, symtab_t **symtab, uint32_t *size);
+int     read_symtab_macho64(void *ptr, symtab_t **symtab, uint32_t *size);
 
 void    index_sections(uint32_t ncmds, void *lc_start);
 index_t *get_sect_index(void);
