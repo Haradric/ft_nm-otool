@@ -24,13 +24,13 @@ typedef struct  section_index {
 
 index_t *get_sect_index(void);
 
-int     nm_read_file(const char *path, void *ptr);
+int     nm_read_file(const char *path, void *ptr, int multifile);
 
-int     handle_macho32(void *ptr);
-int     handle_macho64(void *ptr);
-int     handle_fat32(void *ptr);
-int     handle_fat64(void *ptr);
-int     handle_ar(void *ptr);
+int     handle_macho32(const char *name, void *ptr);
+int     handle_macho64(const char *name, void *ptr);
+int     handle_fat32(const char *name, void *ptr);
+int     handle_fat64(const char *name, void *ptr);
+int     handle_ar(const char *name, void *ptr);
 
 int     read_symtab_macho32(void *ptr, symtab_t **symtab, uint32_t *size);
 int     read_symtab_macho64(void *ptr, symtab_t **symtab, uint32_t *size);
@@ -40,6 +40,7 @@ index_t *get_sect_index(void);
 
 void    sort_symtab(struct symtab *arr, size_t n);
 
+void    print_filename(const char *name, const char *sub);
 void    print_symtab(symtab_t *tab, size_t size, int addr_size);
 
 void    error(const char *prefix, const char *str);

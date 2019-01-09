@@ -2,9 +2,24 @@
 #include <mach-o/loader.h> // LC_SYMTAB symtab_command
 #include <mach-o/nlist.h>  // nist_64
 #include <stddef.h>        // size_t
+#include <unistd.h>        // write()
 
 #include "libft.h"
 #include "nm.h"
+
+void print_filename(const char *name, const char *sub) {
+
+    if (name) {
+        write(STDOUT_FILENO, "\n", 1);
+        write(STDOUT_FILENO, name, ft_strlen(name));
+        if (sub) {
+            write(STDOUT_FILENO, "(", 1);
+            write(STDOUT_FILENO, sub, ft_strlen(sub));
+            write(STDOUT_FILENO, ")", 1);
+        }
+        write(STDOUT_FILENO, ":\n", 2);
+    }
+}
 
 static char *uint64_to_hex(uint64_t n, size_t len) {
 
