@@ -28,7 +28,9 @@ target_sources(nm
         ${CMAKE_CURRENT_LIST_DIR}/src/sections_index.c
         ${CMAKE_CURRENT_LIST_DIR}/src/macho32.c
         ${CMAKE_CURRENT_LIST_DIR}/src/macho64.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/fat.c
         ${CMAKE_CURRENT_LIST_DIR}/src/sort.c
         ${CMAKE_CURRENT_LIST_DIR}/src/print.c
         ${CMAKE_CURRENT_LIST_DIR}/src/error.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/utils.c
 )

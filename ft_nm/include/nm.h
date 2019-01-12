@@ -7,6 +7,8 @@
 
 #define AR_MAGIC 0x72613c21
 
+#define HOSTARCH ((sizeof(void *) == 4) ? CPU_TYPE_I386 : CPU_TYPE_X86_64)
+
 typedef struct  symtab {
     uint8_t     *n_name;
     uint8_t     n_type;
@@ -24,16 +26,16 @@ typedef struct  section_index {
 
 index_t *get_sect_index(void);
 
-int     nm_read_file(const char *path, void *ptr, int multifile);
+int     nm_read_file(const char *path, const char *sub, void *ptr, int multifile);
 
-int     handle_macho32(const char *name, void *ptr);
-int     handle_macho64(const char *name, void *ptr);
-int     handle_fat32(const char *name, void *ptr);
-int     handle_fat64(const char *name, void *ptr);
+int     handle_macho32(const char *name, const char *sub, void *ptr);
+int     handle_macho64(const char *name, const char *sub, void *ptr);
+int     handle_fat(const char *name, void *ptr);
 int     handle_ar(const char *name, void *ptr);
 
 int     read_symtab_macho32(void *ptr, symtab_t **symtab, uint32_t *size);
 int     read_symtab_macho64(void *ptr, symtab_t **symtab, uint32_t *size);
+int     read_fat(const char *name, void *ptr);
 
 void    index_sections(uint32_t ncmds, void *lc_start);
 index_t *get_sect_index(void);
@@ -41,11 +43,15 @@ index_t *get_sect_index(void);
 void    sort_symtab(struct symtab *arr, size_t n);
 
 void    print_filename(const char *name, const char *sub);
+void    print_filename_arch(const char *name, uint32_t cpu);
 void    print_symtab(symtab_t *tab, size_t size, int addr_size);
 
 void    error(const char *prefix, const char *str);
 void    error_custom(const char *prefix, const char *str, const char *err);
 void    terminate(const char *prefix, const char *str);
 void    terminate_custom(const char *prefix, const char *str, const char *err);
+
+uint32_t big_to_little_uint32(uint32_t x);
+uint64_t big_to_little_uint64(uint64_t x);
 
 #endif /* NM_H */

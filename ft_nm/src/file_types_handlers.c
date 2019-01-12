@@ -7,7 +7,7 @@
 
 #include "nm.h"
 
-int handle_macho32(const char *name, void *ptr) {
+int handle_macho32(const char *name, const char *sub, void *ptr) {
 
     symtab_t *symtab = NULL;
     uint32_t symtab_size;
@@ -16,7 +16,7 @@ int handle_macho32(const char *name, void *ptr) {
 //    set endianness
     index_sections(((struct mach_header *)ptr)->ncmds, ptr + sizeof(struct mach_header));
     if (!read_symtab_macho32(ptr, &symtab, &symtab_size)) {
-        print_filename(name, NULL);
+        print_filename(name, sub);
         print_symtab(symtab, symtab_size, 8);
         free(symtab);
         return (0);
@@ -25,7 +25,7 @@ int handle_macho32(const char *name, void *ptr) {
     return (1);
 }
 
-int handle_macho64(const char *name, void *ptr) {
+int handle_macho64(const char *name, const char *sub, void *ptr) {
 
     symtab_t *symtab = NULL;
     uint32_t symtab_size;
@@ -34,7 +34,7 @@ int handle_macho64(const char *name, void *ptr) {
 //    set endianness
     index_sections(((struct mach_header_64 *)ptr)->ncmds, ptr + sizeof(struct mach_header_64));
     if (!read_symtab_macho64(ptr, &symtab, &symtab_size)) {
-        print_filename(name, NULL);
+        print_filename(name, sub);
         print_symtab(symtab, symtab_size, 16);
         free(symtab);
         return (0);
@@ -43,20 +43,9 @@ int handle_macho64(const char *name, void *ptr) {
     return (1);
 }
 
-int handle_fat32(const char *name, void *ptr) {
+int handle_fat(const char *name, void *ptr) {
 
-    (void)ptr;
-    error_custom("nm", name, "not implemented - universal (fat) binary 32-bit");
-
-    return (1);
-}
-
-int handle_fat64(const char *name, void *ptr) {
-
-    (void)ptr;
-    error_custom("nm", name, "not implemented - universal (fat) binary 64-bit");
-
-    return (1);
+    return (read_fat(name, ptr));
 }
 
 int handle_ar(const char *name, void *ptr) {
