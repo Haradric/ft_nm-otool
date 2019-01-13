@@ -26,7 +26,7 @@ typedef struct  section_index {
 
 index_t *get_sect_index(void);
 
-int     nm_read_file(const char *path, const char *sub, void *ptr, int multifile);
+int     nm_read_file(const char *path, const char *sub, void *ptr);
 
 int     handle_macho32(const char *name, const char *sub, void *ptr);
 int     handle_macho64(const char *name, const char *sub, void *ptr);

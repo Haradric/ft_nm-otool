@@ -29,7 +29,7 @@ static int nm(int argc, const char *arg) {
                     PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
         terminate("nm", "mmap");
 
-    ret = nm_read_file(arg, NULL, ptr, (argc == 2) ? 0 : 1);
+    ret = nm_read_file((argc == 2) ? NULL : arg, NULL, ptr);
 
     if (munmap(ptr, statbuf.st_size) == -1)
         terminate("nm", "munmap");
