@@ -6,7 +6,7 @@
 
 #include "nm.h"
 
-int     nm_read_file(const char *file, const char *sub, void *ptr) {
+int     nm_read_file(const char *file, const char *sub, void *ptr, size_t size) {
 
     uint32_t    magic_number;
     int         ret = 0;
@@ -20,7 +20,7 @@ int     nm_read_file(const char *file, const char *sub, void *ptr) {
     } else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM) {
         ret = handle_fat(file, ptr);
     } else if (magic_number == AR_MAGIC) {
-        ret = handle_ar(file, ptr);
+        ret = handle_ar(file, ptr, size);
     } else {
         error_custom("nm", file, "not a valid object file");
         return (1);

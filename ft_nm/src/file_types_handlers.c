@@ -2,7 +2,8 @@
 #include <mach-o/loader.h> // MH_MAGIC_*, MH_CIGAM_*
 //#include <mach-o/stab.h>
 #include <mach-o/fat.h>    // FAT_MAGIC*, FAT_CIGAM*
-#include <stdio.h>         // printf()
+#include <mach-o/ranlib.h> //
+#include <ar.h>
 #include <stdlib.h>        // free()
 
 #include "nm.h"
@@ -48,10 +49,29 @@ int handle_fat(const char *name, void *ptr) {
     return (read_fat(name, ptr));
 }
 
-int handle_ar(const char *name, void *ptr) {
+int handle_ar(const char *name, void *ptr, size_t size) {
 
-    (void)ptr;
-    error_custom("nm", name, "not implemented - ar archive");
+    struct ar_hdr *header;
+    char          *str;
+    void *end;
+    void *file;
 
-    return (1);
+    end = ptr + size;
+    header = ptr + SARMAG;
+    ptr = (void *)header + sizeof(*header) + atoi(header->ar_size);
+
+    while (ptr < end) {
+        header = ptr;
+        str = (void *)header + sizeof(*header);
+        file = str;
+        while (*(char *)file)
+            file++;
+        while (!*(char *)file)
+            file++;
+        print_filename(name, str);
+        nm_read_file(NULL, NULL, file, atoi(header->ar_size));
+        ptr += sizeof(*header) + atoi(header->ar_size);
+    }
+
+    return (0);
 }

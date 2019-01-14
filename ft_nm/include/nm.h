@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define AR_MAGIC 0x72613c21
+#define AR_MAGIC      0x72613c21  /* magic string in uint32_t */
 
 #define HOSTARCH ((sizeof(void *) == 4) ? CPU_TYPE_I386 : CPU_TYPE_X86_64)
 
@@ -26,12 +26,12 @@ typedef struct  section_index {
 
 index_t *get_sect_index(void);
 
-int     nm_read_file(const char *path, const char *sub, void *ptr);
+int     nm_read_file(const char *path, const char *sub, void *ptr, size_t size);
 
 int     handle_macho32(const char *name, const char *sub, void *ptr);
 int     handle_macho64(const char *name, const char *sub, void *ptr);
 int     handle_fat(const char *name, void *ptr);
-int     handle_ar(const char *name, void *ptr);
+int     handle_ar(const char *name, void *ptr, size_t size);
 
 int     read_symtab_macho32(void *ptr, symtab_t **symtab, uint32_t *size);
 int     read_symtab_macho64(void *ptr, symtab_t **symtab, uint32_t *size);
