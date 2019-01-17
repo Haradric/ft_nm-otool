@@ -1,13 +1,11 @@
 
-#include <mach-o/loader.h> // LC_SYMTAB symtab_command
-#include <mach-o/nlist.h>  // nist_64
-#include <stddef.h>        // size_t
-#include <unistd.h>        // write()
+#include <unistd.h>
+#include <mach-o/nlist.h>
 
-#include "libft.h"
-#include "nm.h"
+#include "ft_nm.h"
 
 void print_filename_arch(const char *name, uint32_t cpu) {
+
     if (cpu == CPU_TYPE_POWERPC)
         print_filename(name, "ppc");
     else if (cpu == CPU_TYPE_POWERPC64)

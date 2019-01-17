@@ -1,12 +1,5 @@
 
-#include <mach-o/loader.h> // MH_MAGIC_*, MH_CIGAM_*
-//#include <mach-o/stab.h>
-#include <mach-o/fat.h>    // FAT_MAGIC*, FAT_CIGAM*
-#include <mach-o/ranlib.h> //
-#include <ar.h>
-#include <stdlib.h>        // free()
-
-#include "nm.h"
+#include "ft_nm.h"
 
 int handle_macho32(const char *name, const char *sub, void *ptr) {
 
@@ -52,7 +45,7 @@ int handle_fat(const char *name, void *ptr) {
 int handle_ar(const char *name, void *ptr, size_t size) {
 
     struct ar_hdr *header;
-    char          *str;
+    char *str;
     void *end;
     void *file;
 

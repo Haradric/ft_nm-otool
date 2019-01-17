@@ -1,8 +1,5 @@
 
-#include <stddef.h>
-
-#include "libft.h"
-#include "nm.h"
+#include "ft_nm.h"
 
 static int cmp_symtab(struct symtab *a, struct symtab *b) {
 
@@ -18,8 +15,8 @@ static void swap(struct symtab *a, struct symtab *b) {
     *b = tmp;
 }
 
-void    sort_symtab(struct symtab *arr, size_t n)
-{
+void    sort_symtab(struct symtab *arr, size_t n) {
+
     size_t i;
     size_t j;
     int swapped;

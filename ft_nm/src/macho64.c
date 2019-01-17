@@ -1,9 +1,7 @@
 
-#include <mach-o/loader.h> // LC_SYMTAB symtab_command
-#include <mach-o/nlist.h>  // struct nlist_64
-#include <stdlib.h>        // malloc()
+#include <mach-o/nlist.h>
 
-#include "nm.h"
+#include "ft_nm.h"
 
 static void	read_symtab(struct symtab_command *symcmd, symtab_t *tab, void *ptr) {
 
@@ -21,7 +19,7 @@ static void	read_symtab(struct symtab_command *symcmd, symtab_t *tab, void *ptr)
         tab->n_desc = symtab[i].n_desc;
         tab->n_value = symtab[i].n_value;
         tab = (void *)tab + sizeof(*tab);
-        ++i;
+        i++;
     }
 }
 
@@ -32,14 +30,14 @@ static void	*get_symtab_lc(void *ptr) {
     uint32_t i;
 
     lc = ptr + sizeof(struct mach_header_64);
-
     ncmds = ((struct mach_header_64 *)ptr)->ncmds;
+
     i = 0;
     while (i < ncmds) {
         if (lc->cmd == LC_SYMTAB)
             return (lc);
         lc = (void *)lc + lc->cmdsize;
-        ++i;
+        i++;
     }
 
     return (NULL); // need to be handled

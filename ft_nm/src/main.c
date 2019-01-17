@@ -1,13 +1,10 @@
 
-#include <stdlib.h>   // EXIT_*
-#include <fcntl.h>    // open()
-#include <stdio.h>    // perror()
-#include <sys/stat.h> // fstat()
-#include <sys/mman.h> // mmap(), munmap()
-#include <unistd.h>   // close()
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
 
-#include "libft.h"
-#include "nm.h"
+#include "ft_nm.h"
 
 static int nm(int argc, const char *arg) {
 
@@ -52,7 +49,7 @@ int     main(int argc, char **argv) {
     i = 1;
     while (i < (size_t)argc) {
         ret += nm(argc, argv[i]);
-        ++i;
+        i++;
     }
 
     return (ret);

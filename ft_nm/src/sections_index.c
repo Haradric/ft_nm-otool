@@ -1,8 +1,5 @@
 
-#include <mach-o/loader.h> // MH_MAGIC_*, MH_CIGAM_*
-
-#include "libft.h"
-#include "nm.h"
+#include "ft_nm.h"
 
 static void read_segment32(struct load_command *lc) {
 

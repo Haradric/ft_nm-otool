@@ -1,11 +1,18 @@
 
-#ifndef NM_H
-#define NM_H
+#ifndef FT_NM_H
+#define FT_NM_H
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdlib.h>
+#include <ar.h>
+#include <mach-o/loader.h>
+#include <mach-o/fat.h>
+#include <mach-o/ranlib.h>
 
-#define AR_MAGIC      0x72613c21  /* magic string in uint32_t */
+#include "libft.h"
+
+#define AR_MAGIC 0x72613c21  /* magic string in uint32_t */
 
 #define HOSTARCH ((sizeof(void *) == 4) ? CPU_TYPE_I386 : CPU_TYPE_X86_64)
 
@@ -23,8 +30,6 @@ typedef struct  section_index {
     uint8_t     data;
     uint8_t     bss;
 }               index_t;
-
-index_t *get_sect_index(void);
 
 int     nm_read_file(const char *path, const char *sub, void *ptr, size_t size);
 
@@ -54,4 +59,4 @@ void    terminate_custom(const char *prefix, const char *str, const char *err);
 uint32_t big_to_little_uint32(uint32_t x);
 uint64_t big_to_little_uint64(uint64_t x);
 
-#endif /* NM_H */
+#endif /* FT_NM_H */

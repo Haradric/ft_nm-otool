@@ -1,7 +1,5 @@
 
-#include <mach-o/fat.h>    // FAT_MAGIC*, FAT_CIGAM*
-
-#include "nm.h"
+#include "ft_nm.h"
 
 static int fat_read_all(const char *name, void *ptr) {
 
