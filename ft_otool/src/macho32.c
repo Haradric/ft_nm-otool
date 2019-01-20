@@ -6,8 +6,8 @@
 static void print_text_sect(void *ptr, uint32_t size, uint32_t vm_addr) {
 
     char const *msg = "Contents of ("SEG_TEXT","SECT_TEXT") section\n";
-    int const step = 16;
-    void *end;
+    int const  step = 16;
+    void   *end;
     size_t i;
 
     write(STDOUT_FILENO, msg, ft_strlen(msg));
@@ -26,6 +26,7 @@ static void print_text_sect(void *ptr, uint32_t size, uint32_t vm_addr) {
         vm_addr += step;
         ptr += step;
     }
+    write(STDOUT_FILENO, "\n", 1);
 }
 
 static void read_segment(void *ptr, struct segment_command *cmd) {

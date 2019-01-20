@@ -3,26 +3,32 @@
 
 #include "ft_otool.h"
 
-void print_filename_arch(const char *name, uint32_t cpu) {
+static void print_arch(uint32_t arch) {
 
-    if (cpu == CPU_TYPE_POWERPC)
-        print_filename(name, "ppc");
-    else if (cpu == CPU_TYPE_POWERPC64)
-        print_filename(name, "ppc64");
-    else if (cpu == CPU_TYPE_I386)
-        print_filename(name, "i386");
-    else if (cpu == CPU_TYPE_X86_64)
-        print_filename(name, "x86_64");
+    if (arch != HOSTARCH) {
+        if (arch)
+            write(STDOUT_FILENO, " - ", 3);
+        if (arch == CPU_TYPE_POWERPC)
+            write(STDOUT_FILENO, "ppc", 3);
+        else if (arch == CPU_TYPE_POWERPC64)
+            write(STDOUT_FILENO, "ppc64", 5);
+        else if (arch == CPU_TYPE_I386)
+            write(STDOUT_FILENO, "i386", 4);
+        else if (arch == CPU_TYPE_X86_64)
+            write(STDOUT_FILENO, "x86_64", 6);
+        else
+            write(STDOUT_FILENO, "unknown", 7);
+    }
 }
 
-void print_filename(const char *name, const char *sub) {
+void print_filename(const char *name, const char *sub, uint32_t arch) {
 
     if (name) {
-        write(STDOUT_FILENO, "\n", 1);
         write(STDOUT_FILENO, name, ft_strlen(name));
         if (sub) {
             write(STDOUT_FILENO, "(", 1);
             write(STDOUT_FILENO, sub, ft_strlen(sub));
+            print_arch(arch);
             write(STDOUT_FILENO, ")", 1);
         }
         write(STDOUT_FILENO, ":\n", 2);

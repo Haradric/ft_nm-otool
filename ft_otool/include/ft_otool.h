@@ -49,8 +49,7 @@ index_t *get_sect_index(void);
 
 void    sort_symtab(struct symtab *arr, size_t n);
 
-void    print_filename(const char *name, const char *sub);
-void    print_filename_arch(const char *name, uint32_t cpu);
+void    print_filename(const char *name, const char *sub, uint32_t arch);
 
 void    error(const char *prefix, const char *str);
 void    error_custom(const char *prefix, const char *str, const char *err);

@@ -6,7 +6,7 @@
 
 #include "ft_otool.h"
 
-static int otool(int argc, const char *arg) {
+static int otool(const char *arg) {
 
     struct stat statbuf;
     int         ret;
@@ -26,7 +26,7 @@ static int otool(int argc, const char *arg) {
                     PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
         terminate("otool", "mmap");
 
-    ret = otool_read_file((argc == 2) ? NULL : arg, NULL, ptr, statbuf.st_size);
+    ret = otool_read_file(arg, NULL, ptr, statbuf.st_size);
 
     if (munmap(ptr, statbuf.st_size) == -1)
         terminate("otool", "munmap");
@@ -43,12 +43,12 @@ int     main(int argc, char **argv) {
     int    ret;
 
     if (argc == 1)
-        return (otool(argc, "a.out"));
+        return (otool("a.out"));
 
     ret = 0;
     i = 1;
     while (i < (size_t)argc) {
-        ret += otool(argc, argv[i]);
+        ret += otool(argv[i]);
         i++;
     }
 

@@ -14,8 +14,7 @@ static int fat_read_all(const char *name, void *ptr) {
 
     i = 0;
     while (i < n) {
-        print_filename_arch(name, big_to_little_uint32(arch[i].cputype));
-        otool_read_file(NULL, NULL, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size));
+        otool_read_file(name, NULL, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size));
         i++;
     }
 
@@ -36,8 +35,7 @@ static int fat_read_one(const char *name, void *ptr) {
     i = 0;
     while (i < n) {
         if (big_to_little_uint32(arch[i].cputype) == HOSTARCH) {
-            print_filename_arch(name, big_to_little_uint32(arch[i].cputype));
-            otool_read_file(NULL, NULL, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size));
+            otool_read_file(name, NULL, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size));
             return (0);
         }
         i++;
