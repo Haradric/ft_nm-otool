@@ -17,22 +17,25 @@ static int otool(const char *arg) {
         terminate("otool", arg);
 
     if (fstat(fd, &statbuf) == -1)
-        terminate("otool", "fstat");
+        terminate("otool", arg);
 
     if (!S_ISREG(statbuf.st_mode) && !S_ISLNK(statbuf.st_mode))
         terminate_custom("nm", arg, "is not a regular file");
 
+    if (statbuf.st_size == 0)
+        terminate_custom("otool", arg, "the file is empty");
+
     if ((ptr = mmap(NULL, statbuf.st_size, \
                     PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-        terminate("otool", "mmap");
+        terminate_custom("otool", arg, "can't map file into memory");
 
     ret = otool_read_file(arg, NULL, ptr, statbuf.st_size);
 
     if (munmap(ptr, statbuf.st_size) == -1)
-        terminate("otool", "munmap");
+        terminate("otool", arg);
 
     if (close(fd) == -1)
-        terminate("otool", "close");
+        terminate("otool", arg);
 
     return (ret);
 }
