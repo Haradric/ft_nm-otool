@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include <ar.h>
 #include <mach-o/loader.h>
 #include <mach-o/fat.h>
@@ -15,6 +16,12 @@
 #define AR_MAGIC 0x72613c21  /* magic string in uint32_t */
 
 #define HOSTARCH ((sizeof(void *) == 4) ? CPU_TYPE_I386 : CPU_TYPE_X86_64)
+
+typedef struct  otool_obj {
+    struct stat st;
+    void        *ptr;
+    int         fd;
+}               otool_obj_t;
 
 typedef struct  symtab {
     uint8_t     *n_name;
