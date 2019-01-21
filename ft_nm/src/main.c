@@ -6,33 +6,53 @@
 
 #include "ft_nm.h"
 
+static int nm_init(const char *arg, struct nm_obj *file) {
+
+    ft_memset(file, 0, sizeof(*file));
+
+    if ((file->fd = open(arg, O_RDONLY)) < 0 ) {
+        error("nm", arg);
+        return (1);
+    }
+
+    if (fstat(file->fd, &file->st) == -1) {
+        error("nm", arg);
+        return (1);
+    }
+
+    if ((!S_ISREG(file->st.st_mode) && !S_ISLNK(file->st.st_mode)) || \
+        file->st.st_size == 0) {
+        error_custom("nm", arg, "not a valid object file");
+        return (1);
+    }
+
+    if ((file->ptr = mmap(NULL, file->st.st_size, \
+                          PROT_READ, MAP_PRIVATE, file->fd, 0)) == MAP_FAILED) {
+        error_custom("nm", arg, "can't map file into memory");
+        return (1);
+    }
+
+    return (0);
+}
+
+static void nm_deinit(struct nm_obj *file) {
+
+    if (file->ptr)
+        munmap(file->ptr, file->st.st_size);
+
+    if (file->fd >= 3)
+        close(file->fd);
+}
+
 static int nm(int argc, const char *arg) {
 
-    struct stat statbuf;
-    int         ret;
-    int         fd;
-    char        *ptr;
+    struct nm_obj info;
+    int         ret = 1;
 
-    if ((fd = open(arg, O_RDONLY)) < 0 )
-        terminate("nm", arg);
+    if (!nm_init(arg, &info))
+        ret = nm_read_file((argc == 2) ? NULL : arg, NULL, info.ptr, info.st.st_size);
 
-    if (fstat(fd, &statbuf) == -1)
-        terminate("nm", "fstat");
-
-    if (!S_ISREG(statbuf.st_mode) && !S_ISLNK(statbuf.st_mode))
-        terminate_custom("nm", arg, "is not a regular file");
-
-    if ((ptr = mmap(NULL, statbuf.st_size, \
-                    PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-        terminate("nm", "mmap");
-
-    ret = nm_read_file((argc == 2) ? NULL : arg, NULL, ptr, statbuf.st_size);
-
-    if (munmap(ptr, statbuf.st_size) == -1)
-        terminate("nm", "munmap");
-
-    if (close(fd) == -1)
-        terminate("nm", "close");
+    nm_deinit(&info);
 
     return (ret);
 }
