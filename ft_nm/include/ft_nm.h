@@ -38,10 +38,10 @@ typedef struct  section_index {
     uint8_t     bss;
 }               index_t;
 
-int     nm_read_file(const char *path, const char *sub, void *ptr, size_t size);
+int     nm_read_file(const char *path, void *ptr, size_t size, int multifile);
 
-int     handle_macho32(const char *name, const char *sub, void *ptr);
-int     handle_macho64(const char *name, const char *sub, void *ptr);
+int     handle_macho32(const char *name, void *ptr);
+int     handle_macho64(const char *name, void *ptr);
 int     handle_fat(const char *name, void *ptr);
 int     handle_ar(const char *name, void *ptr, size_t size);
 

@@ -50,7 +50,7 @@ static int otool(const char *arg) {
     int         ret = 1;
 
     if (!otool_init(arg, &info))
-        ret = otool_read_file(arg, NULL, info.ptr, info.st.st_size);
+        ret = otool_read_file(arg, info.ptr, info.st.st_size);
 
     otool_deinit(&info);
 

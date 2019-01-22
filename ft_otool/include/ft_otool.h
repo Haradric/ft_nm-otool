@@ -40,10 +40,10 @@ typedef struct  section_index {
 
 index_t *get_sect_index(void);
 
-int     otool_read_file(const char *path, const char *sub, void *ptr, size_t size);
+int     otool_read_file(const char *path, void *ptr, size_t size);
 
-int     handle_macho32(const char *name, const char *sub, void *ptr);
-int     handle_macho64(const char *name, const char *sub, void *ptr);
+int     handle_macho32(const char *name, void *ptr);
+int     handle_macho64(const char *name, void *ptr);
 int     handle_fat(const char *name, void *ptr);
 int     handle_ar(const char *name, void *ptr, size_t size);
 

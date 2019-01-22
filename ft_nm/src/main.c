@@ -50,7 +50,7 @@ static int nm(int argc, const char *arg) {
     int         ret = 1;
 
     if (!nm_init(arg, &info))
-        ret = nm_read_file((argc == 2) ? NULL : arg, NULL, info.ptr, info.st.st_size);
+        ret = nm_read_file(arg, info.ptr, info.st.st_size, (argc == 2) ? 0 : 1);
 
     nm_deinit(&info);
 

@@ -14,7 +14,7 @@ static int fat_read_all(const char *name, void *ptr) {
 
     i = 0;
     while (i < n) {
-        nm_read_file(name, NULL, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size));
+        nm_read_file(name, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size), 0);
         i++;
     }
 
@@ -35,7 +35,7 @@ static int fat_read_one(const char *name, void *ptr) {
     i = 0;
     while (i < n) {
         if (big_to_little_uint32(arch[i].cputype) == HOSTARCH) {
-            nm_read_file(name, NULL, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size));
+            nm_read_file(name, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size), 0);
             return (0);
         }
         i++;

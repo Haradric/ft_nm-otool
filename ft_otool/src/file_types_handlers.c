@@ -1,23 +1,23 @@
 
 #include "ft_otool.h"
 
-int handle_macho32(const char *name, const char *sub, void *ptr) {
+int handle_macho32(const char *name, void *ptr) {
 
     //    printf("mach-o 64-bit\n");
     //    set endianness
 
-    print_filename(name, sub, ((struct mach_header *)ptr)->cputype);
+    print_filename(name, NULL, ((struct mach_header *)ptr)->cputype);
     get_text_sect32(ptr);
 
     return (0);
 }
 
-int handle_macho64(const char *name, const char *sub, void *ptr) {
+int handle_macho64(const char *name, void *ptr) {
 
 //    printf("mach-o 64-bit\n");
 //    set endianness
 
-    print_filename(name, sub, ((struct mach_header_64 *)ptr)->cputype);
+    print_filename(name, NULL, ((struct mach_header_64 *)ptr)->cputype);
     get_text_sect64(ptr);
 
     return (0);
@@ -48,7 +48,8 @@ int handle_ar(const char *name, void *ptr, size_t size) {
             file++;
         while (!*(char *)file)
             file++;
-        otool_read_file(name, str, file, atoi(header->ar_size));
+        print_filename(name, str, 0);
+        otool_read_file(NULL, file, atoi(header->ar_size));
         ptr += sizeof(*header) + atoi(header->ar_size);
     }
 

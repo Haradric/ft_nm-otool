@@ -1,7 +1,7 @@
 
 #include "ft_nm.h"
 
-int handle_macho32(const char *name, const char *sub, void *ptr) {
+int handle_macho32(const char *name, void *ptr) {
 
     symtab_t *symtab = NULL;
     uint32_t symtab_size;
@@ -10,7 +10,7 @@ int handle_macho32(const char *name, const char *sub, void *ptr) {
 //    set endianness
     index_sections(((struct mach_header *)ptr)->ncmds, ptr + sizeof(struct mach_header));
     if (!read_symtab_macho32(ptr, &symtab, &symtab_size)) {
-        print_filename(name, sub, ((struct mach_header *)ptr)->cputype);
+        print_filename(name, NULL, ((struct mach_header *)ptr)->cputype);
         print_symtab(symtab, symtab_size, 8);
         free(symtab);
         return (0);
@@ -19,7 +19,7 @@ int handle_macho32(const char *name, const char *sub, void *ptr) {
     return (1);
 }
 
-int handle_macho64(const char *name, const char *sub, void *ptr) {
+int handle_macho64(const char *name, void *ptr) {
 
     symtab_t *symtab = NULL;
     uint32_t symtab_size;
@@ -28,7 +28,7 @@ int handle_macho64(const char *name, const char *sub, void *ptr) {
 //    set endianness
     index_sections(((struct mach_header_64 *)ptr)->ncmds, ptr + sizeof(struct mach_header_64));
     if (!read_symtab_macho64(ptr, &symtab, &symtab_size)) {
-        print_filename(name, sub, ((struct mach_header_64 *)ptr)->cputype);
+        print_filename(name, NULL, ((struct mach_header_64 *)ptr)->cputype);
         print_symtab(symtab, symtab_size, 16);
         free(symtab);
         return (0);
@@ -61,7 +61,8 @@ int handle_ar(const char *name, void *ptr, size_t size) {
             file++;
         while (!*(char *)file)
             file++;
-        nm_read_file(name, str, file, atoi(header->ar_size));
+        print_filename(name, str, 0);
+        nm_read_file(NULL, file, atoi(header->ar_size), 0);
         ptr += sizeof(*header) + atoi(header->ar_size);
     }
 

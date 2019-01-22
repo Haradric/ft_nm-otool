@@ -5,7 +5,7 @@
 
 static void print_arch(uint32_t arch) {
 
-    if (arch != HOSTARCH) {
+    if (arch && arch != HOSTARCH) {
         if (arch)
             write(STDOUT_FILENO, " - ", 3);
         if (arch == CPU_TYPE_POWERPC)
