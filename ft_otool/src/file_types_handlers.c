@@ -38,7 +38,7 @@ int handle_ar(const char *name, void *ptr, size_t size) {
     ft_printf("Archive : %s\n", name);
     end = ptr + size;
     header = ptr + SARMAG;
-    ptr = (void *)header + sizeof(*header) + atoi(header->ar_size);
+    ptr = (void *)header + sizeof(*header) + ft_atoi(header->ar_size);
 
     while (ptr < end) {
         header = ptr;
@@ -49,8 +49,8 @@ int handle_ar(const char *name, void *ptr, size_t size) {
         while (!*(char *)file)
             file++;
         print_filename(name, str, 0);
-        otool_read_file(NULL, file, atoi(header->ar_size));
-        ptr += sizeof(*header) + atoi(header->ar_size);
+        otool_read_file(NULL, file, ft_atoi(header->ar_size));
+        ptr += sizeof(*header) + ft_atoi(header->ar_size);
     }
 
     return (0);
