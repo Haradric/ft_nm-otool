@@ -6,7 +6,7 @@
 
 #include "ft_nm.h"
 
-static int nm_init(const char *arg, struct nm_obj *file) {
+static int nm_init(const char *arg, nm_obj_t *file) {
 
     ft_memset(file, 0, sizeof(*file));
 
@@ -35,7 +35,7 @@ static int nm_init(const char *arg, struct nm_obj *file) {
     return (0);
 }
 
-static void nm_deinit(struct nm_obj *file) {
+static void nm_deinit(nm_obj_t *file) {
 
     if (file->ptr)
         munmap(file->ptr, file->st.st_size);
@@ -46,8 +46,8 @@ static void nm_deinit(struct nm_obj *file) {
 
 static int nm(int argc, const char *arg) {
 
-    struct nm_obj info;
-    int         ret = 1;
+    nm_obj_t info;
+    int      ret = 1;
 
     if (!nm_init(arg, &info))
         ret = nm_read_file(arg, info.ptr, info.st.st_size, (argc == 2) ? 0 : 1);

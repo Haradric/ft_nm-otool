@@ -52,7 +52,7 @@ int     read_fat(const char *name, void *ptr, int multifile);
 void    index_sections(uint32_t ncmds, void *lc_start);
 index_t *get_sect_index(void);
 
-void    sort_symtab(struct symtab *arr, size_t n);
+void    sort_symtab(symtab_t *arr, size_t n);
 
 void    print_filename(const char *name, uint32_t arch);
 

@@ -6,7 +6,7 @@
 
 #include "ft_otool.h"
 
-static int otool_init(const char *arg, struct otool_obj *file) {
+static int otool_init(const char *arg, otool_obj_t *file) {
 
     ft_memset(file, 0, sizeof(*file));
 
@@ -35,7 +35,7 @@ static int otool_init(const char *arg, struct otool_obj *file) {
     return (0);
 }
 
-static void otool_deinit(struct otool_obj *file) {
+static void otool_deinit(otool_obj_t *file) {
 
     if (file->ptr)
         munmap(file->ptr, file->st.st_size);
@@ -46,8 +46,8 @@ static void otool_deinit(struct otool_obj *file) {
 
 static int otool(const char *arg) {
 
-    struct otool_obj info;
-    int         ret = 1;
+    otool_obj_t info;
+    int ret = 1;
 
     if (!otool_init(arg, &info))
         ret = otool_read_file(arg, info.ptr, info.st.st_size);

@@ -1,21 +1,21 @@
 
 #include "ft_nm.h"
 
-static int cmp_symtab(struct symtab *a, struct symtab *b) {
+static int cmp_symtab(symtab_t *a, symtab_t *b) {
 
     return (ft_strcmp((char *)a->n_name, (char *)b->n_name));
 }
 
-static void swap(struct symtab *a, struct symtab *b) {
+static void swap(symtab_t *a, symtab_t *b) {
 
-    struct symtab tmp;
+    symtab_t tmp;
 
     tmp = *a;
     *a = *b;
     *b = tmp;
 }
 
-void    sort_symtab(struct symtab *arr, size_t n) {
+void    sort_symtab(symtab_t *arr, size_t n) {
 
     size_t i;
     size_t j;

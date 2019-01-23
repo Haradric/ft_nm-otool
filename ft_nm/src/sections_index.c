@@ -77,7 +77,7 @@ void index_sections(uint32_t ncmds, void *lc_start) {
 }
 
 index_t *get_sect_index(void) {
-    static index_t index = {0};
+    static index_t index = {0, 0, 0, 0};
 
     return (&index);
 }
