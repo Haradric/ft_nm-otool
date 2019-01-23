@@ -3,9 +3,6 @@
 
 int handle_macho32(const char *name, void *ptr) {
 
-    //    printf("mach-o 64-bit\n");
-    //    set endianness
-
     print_filename(name, ((struct mach_header *)ptr)->cputype);
     get_text_sect32(ptr);
 
@@ -13,9 +10,6 @@ int handle_macho32(const char *name, void *ptr) {
 }
 
 int handle_macho64(const char *name, void *ptr) {
-
-//    printf("mach-o 64-bit\n");
-//    set endianness
 
     print_filename(name, ((struct mach_header_64 *)ptr)->cputype);
     get_text_sect64(ptr);

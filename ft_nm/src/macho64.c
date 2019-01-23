@@ -40,7 +40,7 @@ static void	*get_symtab_lc(void *ptr) {
         i++;
     }
 
-    return (NULL); // need to be handled
+    return (NULL);
 }
 
 int read_symtab_macho64(void *ptr, symtab_t **symtab, uint32_t *size) {

@@ -13,7 +13,7 @@
 
 #include "libft.h"
 
-#define AR_MAGIC 0x72613c21  /* magic string in uint32_t */
+#define AR_MAGIC 0x72613c21
 
 #define HOSTARCH ((sizeof(void *) == 4) ? CPU_TYPE_I386 : CPU_TYPE_X86_64)
 
@@ -66,4 +66,4 @@ void    terminate_custom(const char *prefix, const char *str, const char *err);
 uint32_t btlu32(uint32_t x);
 char     *genname(char *name, char *sub);
 
-#endif /* FT_NM_H */
+#endif

@@ -13,7 +13,7 @@
 
 #include "libft.h"
 
-#define AR_MAGIC 0x72613c21  /* magic string in uint32_t */
+#define AR_MAGIC 0x72613c21
 
 #define HOSTARCH ((sizeof(void *) == 4) ? CPU_TYPE_I386 : CPU_TYPE_X86_64)
 
@@ -47,4 +47,4 @@ char     *htsu32(uint32_t n);
 char     *htsu64(uint64_t n);
 char     *genname(char *name, char *sub);
 
-#endif /* FT_OTOOL_H */
+#endif

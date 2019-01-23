@@ -6,8 +6,6 @@ int handle_macho32(const char *name, void *ptr) {
     symtab_t *symtab = NULL;
     uint32_t symtab_size;
 
-//    printf("mach-o 32-bit\n");
-//    set endianness
     index_sections(((struct mach_header *)ptr)->ncmds, ptr + sizeof(struct mach_header));
     if (!read_symtab_macho32(ptr, &symtab, &symtab_size)) {
         print_filename(name, ((struct mach_header *)ptr)->cputype);
@@ -24,8 +22,6 @@ int handle_macho64(const char *name, void *ptr) {
     symtab_t *symtab = NULL;
     uint32_t symtab_size;
 
-//    printf("mach-o 64-bit\n");
-//    set endianness
     index_sections(((struct mach_header_64 *)ptr)->ncmds, ptr + sizeof(struct mach_header_64));
     if (!read_symtab_macho64(ptr, &symtab, &symtab_size)) {
         print_filename(name, ((struct mach_header_64 *)ptr)->cputype);
