@@ -1,5 +1,6 @@
 
 #include <stdint.h>
+#include "libft.h"
 
 #define UINT64_STR_LEN 16
 #define UINT32_STR_LEN 8
@@ -9,15 +10,6 @@ uint32_t btlu32(uint32_t x) {
     x = ((x << 8) & 0xFF00FF00) | ((x >> 8) & 0xFF00FF);
 
     return (x << 16) | (x >> 16);
-}
-
-uint64_t btlu64(uint64_t x) {
-    x = ((x << 8) & 0xFF00FF00FF00FF00ULL) | \
-        ((x >> 8) & 0x00FF00FF00FF00FFULL);
-    x = ((x << 16) & 0xFFFF0000FFFF0000ULL) | \
-        ((x >> 16) & 0x0000FFFF0000FFFFULL);
-
-    return (x << 32) | (x >> 32);
 }
 
 char *htsu8(uint8_t n) {
@@ -69,4 +61,23 @@ char *htsu64(uint64_t n) {
     }
 
     return ((char *)&buff);
+}
+
+char *genname(char *name, char *sub) {
+
+    char *str = ft_memalloc(ft_strlen(name) + ft_strlen(sub) + 3);
+    char *s;
+
+    s = str;
+    while(*name)
+        *s++ = *name++;
+
+    *s++ = '(';
+    while(*sub)
+        *s++ = *sub++;
+    *s++ = ')';
+
+    *s = 0;
+
+    return (str);
 }

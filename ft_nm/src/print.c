@@ -8,14 +8,14 @@ static void print_arch(uint32_t arch) {
 
     if (arch && arch != HOSTARCH) {
         write(STDOUT_FILENO, " - ", 3);
-        if (arch == CPU_TYPE_POWERPC)
-            write(STDOUT_FILENO, "ppc", 3);
-        else if (arch == CPU_TYPE_POWERPC64)
-            write(STDOUT_FILENO, "ppc64", 5);
-        else if (arch == CPU_TYPE_I386)
+        if (arch == CPU_TYPE_I386)
             write(STDOUT_FILENO, "i386", 4);
         else if (arch == CPU_TYPE_X86_64)
             write(STDOUT_FILENO, "x86_64", 6);
+        else if (arch == CPU_TYPE_POWERPC)
+            write(STDOUT_FILENO, "ppc", 3);
+        else if (arch == CPU_TYPE_POWERPC64)
+            write(STDOUT_FILENO, "ppc64", 5);
         else
             write(STDOUT_FILENO, "unknown", 7);
     }

@@ -42,25 +42,6 @@ int handle_fat(const char *name, void *ptr, int multifile) {
     return (read_fat(name, ptr, multifile));
 }
 
-static char *genname(char *name, char *sub) {
-
-    char *str = ft_memalloc(ft_strlen(name) + ft_strlen(sub) + 3);
-    char *s;
-
-    s = str;
-    while(*name)
-        *s++ = *name++;
-
-    *s++ = '(';
-    while(*sub)
-        *s++ = *sub++;
-    *s++ = ')';
-
-    *s = 0;
-
-    return (str);
-}
-
 int handle_ar(const char *name, void *ptr, size_t size) {
 
     struct ar_hdr *header;

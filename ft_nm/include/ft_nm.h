@@ -64,6 +64,6 @@ void    terminate(const char *prefix, const char *str);
 void    terminate_custom(const char *prefix, const char *str, const char *err);
 
 uint32_t btlu32(uint32_t x);
-uint64_t btlu64(uint64_t x);
+char     *genname(char *name, char *sub);
 
 #endif /* FT_NM_H */

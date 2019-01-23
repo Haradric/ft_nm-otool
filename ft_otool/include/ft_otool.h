@@ -42,9 +42,9 @@ void    terminate(const char *prefix, const char *str);
 void    terminate_custom(const char *prefix, const char *str, const char *err);
 
 uint32_t btlu32(uint32_t x);
-uint64_t btlu64(uint64_t x);
 char     *htsu8(uint8_t n);
 char     *htsu32(uint32_t n);
 char     *htsu64(uint64_t n);
+char     *genname(char *name, char *sub);
 
 #endif /* FT_OTOOL_H */
