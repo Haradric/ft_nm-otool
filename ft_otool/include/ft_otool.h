@@ -34,7 +34,7 @@ void    get_text_sect32(void *ptr);
 void    get_text_sect64(void *ptr);
 int     read_fat(const char *name, void *ptr);
 
-void    print_filename(const char *name, const char *sub, uint32_t arch);
+void    print_filename(const char *name, uint32_t arch);
 
 void    error(const char *prefix, const char *str);
 void    error_custom(const char *prefix, const char *str, const char *err);

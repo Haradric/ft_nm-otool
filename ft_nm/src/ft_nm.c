@@ -13,7 +13,7 @@ int     nm_read_file(const char *file, void *ptr, size_t size, int multifile) {
     } else if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64) {
         ret = handle_macho64((multifile) ? file : NULL, ptr);
     } else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM) {
-        ret = handle_fat(file, ptr);
+        ret = handle_fat(file, ptr, multifile);
     } else if (magic_number == AR_MAGIC) {
         ret = handle_ar(file, ptr, size);
     } else {

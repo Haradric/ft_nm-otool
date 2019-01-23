@@ -10,7 +10,7 @@ int handle_macho32(const char *name, void *ptr) {
 //    set endianness
     index_sections(((struct mach_header *)ptr)->ncmds, ptr + sizeof(struct mach_header));
     if (!read_symtab_macho32(ptr, &symtab, &symtab_size)) {
-        print_filename(name, NULL, ((struct mach_header *)ptr)->cputype);
+        print_filename(name, ((struct mach_header *)ptr)->cputype);
         print_symtab(symtab, symtab_size, 8);
         free(symtab);
         return (0);
@@ -28,7 +28,7 @@ int handle_macho64(const char *name, void *ptr) {
 //    set endianness
     index_sections(((struct mach_header_64 *)ptr)->ncmds, ptr + sizeof(struct mach_header_64));
     if (!read_symtab_macho64(ptr, &symtab, &symtab_size)) {
-        print_filename(name, NULL, ((struct mach_header_64 *)ptr)->cputype);
+        print_filename(name, ((struct mach_header_64 *)ptr)->cputype);
         print_symtab(symtab, symtab_size, 16);
         free(symtab);
         return (0);
@@ -37,15 +37,35 @@ int handle_macho64(const char *name, void *ptr) {
     return (1);
 }
 
-int handle_fat(const char *name, void *ptr) {
+int handle_fat(const char *name, void *ptr, int multifile) {
 
-    return (read_fat(name, ptr));
+    return (read_fat(name, ptr, multifile));
+}
+
+static char *genname(char *name, char *sub) {
+
+    char *str = ft_memalloc(ft_strlen(name) + ft_strlen(sub) + 3);
+    char *s;
+
+    s = str;
+    while(*name)
+        *s++ = *name++;
+
+    *s++ = '(';
+    while(*sub)
+        *s++ = *sub++;
+    *s++ = ')';
+
+    *s = 0;
+
+    return (str);
 }
 
 int handle_ar(const char *name, void *ptr, size_t size) {
 
     struct ar_hdr *header;
     char *str;
+    char *tmp;
     void *end;
     void *file;
 
@@ -56,13 +76,12 @@ int handle_ar(const char *name, void *ptr, size_t size) {
     while (ptr < end) {
         header = ptr;
         str = (void *)header + sizeof(*header);
-        file = str;
-        while (*(char *)file)
-            file++;
+        file = str + ft_strlen(str);
         while (!*(char *)file)
             file++;
-        print_filename(name, str, 0);
-        nm_read_file(NULL, file, ft_atoi(header->ar_size), 0);
+        tmp = genname((char *)name, str);
+        nm_read_file(tmp, file, ft_atoi(header->ar_size), 1);
+        free(tmp);
         ptr += sizeof(*header) + ft_atoi(header->ar_size);
     }
 
