@@ -16,41 +16,43 @@
 
 #include "libft.h"
 
-void    error(const char *prefix, const char *str) {
+void	error(const char *prefix, const char *str)
+{
+	char *err;
 
-    char *err;
-
-    err = strerror(errno);
-    write(STDERR_FILENO, prefix, ft_strlen(prefix));
-    if (str) {
-        write(STDERR_FILENO, ": ", 2);
-        write(STDERR_FILENO, str, ft_strlen(str));
-    }
-    write(STDERR_FILENO, ": ", 2);
-    write(STDERR_FILENO, err, ft_strlen(err));
-    write(STDERR_FILENO, "\n", 1);
+	err = strerror(errno);
+	write(STDERR_FILENO, prefix, ft_strlen(prefix));
+	if (str)
+	{
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, str, ft_strlen(str));
+	}
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, err, ft_strlen(err));
+	write(STDERR_FILENO, "\n", 1);
 }
 
-void    error_custom(const char *prefix, const char *str, const char *err) {
-
-    write(STDERR_FILENO, prefix, ft_strlen(prefix));
-    if (str) {
-        write(STDERR_FILENO, ": ", 2);
-        write(STDERR_FILENO, str, ft_strlen(str));
-    }
-    write(STDERR_FILENO, ": ", 2);
-    write(STDERR_FILENO, err, ft_strlen(err));
-    write(STDERR_FILENO, "\n", 1);
+void	error_custom(const char *prefix, const char *str, const char *err)
+{
+	write(STDERR_FILENO, prefix, ft_strlen(prefix));
+	if (str)
+	{
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, str, ft_strlen(str));
+	}
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, err, ft_strlen(err));
+	write(STDERR_FILENO, "\n", 1);
 }
 
-void    terminate(const char *prefix, const char *str) {
-
-    error(prefix, str);
-    exit(EXIT_FAILURE);
+void	terminate(const char *prefix, const char *str)
+{
+	error(prefix, str);
+	exit(EXIT_FAILURE);
 }
 
-void    terminate_custom(const char *prefix, const char *str, const char *err) {
-
-    error_custom(prefix, str, err);
-    exit(EXIT_FAILURE);
+void	terminate_custom(const char *prefix, const char *str, const char *err)
+{
+	error_custom(prefix, str, err);
+	exit(EXIT_FAILURE);
 }
