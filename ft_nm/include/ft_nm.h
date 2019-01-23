@@ -63,7 +63,7 @@ void    error_custom(const char *prefix, const char *str, const char *err);
 void    terminate(const char *prefix, const char *str);
 void    terminate_custom(const char *prefix, const char *str, const char *err);
 
-uint32_t big_to_little_uint32(uint32_t x);
-uint64_t big_to_little_uint64(uint64_t x);
+uint32_t btlu32(uint32_t x);
+uint64_t btlu64(uint64_t x);
 
 #endif /* FT_NM_H */

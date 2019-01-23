@@ -41,10 +41,10 @@ void    error_custom(const char *prefix, const char *str, const char *err);
 void    terminate(const char *prefix, const char *str);
 void    terminate_custom(const char *prefix, const char *str, const char *err);
 
-uint32_t big_to_little_uint32(uint32_t x);
-uint64_t big_to_little_uint64(uint64_t x);
-char     *uint8_hex_str(uint8_t n);
-char     *uint32_hex_str(uint32_t n);
-char     *uint64_hex_str(uint64_t n);
+uint32_t btlu32(uint32_t x);
+uint64_t btlu64(uint64_t x);
+char     *htsu8(uint8_t n);
+char     *htsu32(uint32_t n);
+char     *htsu64(uint64_t n);
 
 #endif /* FT_OTOOL_H */

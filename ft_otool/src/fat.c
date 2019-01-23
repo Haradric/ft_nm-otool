@@ -10,11 +10,11 @@ static int fat_read_all(const char *name, void *ptr) {
 
     header = ptr;
     arch = ptr + sizeof(*header);
-    n = big_to_little_uint32(header->nfat_arch);
+    n = btlu32(header->nfat_arch);
 
     i = 0;
     while (i < n) {
-        otool_read_file(name, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size));
+        otool_read_file(name, ptr + btlu32(arch[i].offset), btlu32(arch[i].size));
         i++;
     }
 
@@ -30,12 +30,12 @@ static int fat_read_one(const char *name, void *ptr) {
 
     header = ptr;
     arch = ptr + sizeof(*header);
-    n = big_to_little_uint32(header->nfat_arch);
+    n = btlu32(header->nfat_arch);
 
     i = 0;
     while (i < n) {
-        if (big_to_little_uint32(arch[i].cputype) == HOSTARCH) {
-            otool_read_file(name, ptr + big_to_little_uint32(arch[i].offset), big_to_little_uint32(arch[i].size));
+        if (btlu32(arch[i].cputype) == HOSTARCH) {
+            otool_read_file(name, ptr + btlu32(arch[i].offset), btlu32(arch[i].size));
             return (0);
         }
         i++;
@@ -53,11 +53,11 @@ static int fat_check_own(void *ptr) {
 
     header = ptr;
     arch = ptr + sizeof(*header);
-    n = big_to_little_uint32(header->nfat_arch);
+    n = btlu32(header->nfat_arch);
 
     i = 0;
     while (i < n) {
-        if (big_to_little_uint32(arch[i].cputype) == HOSTARCH)
+        if (btlu32(arch[i].cputype) == HOSTARCH)
             return (1);
         i++;
     }

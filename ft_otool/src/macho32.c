@@ -14,11 +14,11 @@ static void print_text_sect(void *ptr, uint32_t size, uint32_t vm_addr) {
 
     end = ptr + size;
     while (ptr < end) {
-        write(STDOUT_FILENO, uint32_hex_str(vm_addr), 8);
+        write(STDOUT_FILENO, htsu32(vm_addr), 8);
         write(STDOUT_FILENO, "\t", 1);
         i = 0;
         while (ptr + i < end && i < step) {
-            write(STDOUT_FILENO, uint8_hex_str(*(uint8_t *)(ptr + i)), 2);
+            write(STDOUT_FILENO, htsu8(*(uint8_t *)(ptr + i)), 2);
             write(STDOUT_FILENO, " ", 1);
             i++;
         }
