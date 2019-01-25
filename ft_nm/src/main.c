@@ -70,10 +70,12 @@ int			main(int argc, char **argv)
 	size_t	i;
 	int		ret;
 
-	if (argc == 1)
-		return (nm(argc, "a.out"));
 	ret = 0;
-	i = 1;
+	if (argc > 1 && !ft_strcmp(argv[1], "--fix"))
+		set_mode(1);
+	if (argc == 1 || (argc == 2 && get_mode()))
+		return (nm(argc, "a.out"));
+	i = (get_mode()) ? 2 : 1;
 	while (i < (size_t)argc)
 	{
 		ret += nm(argc, argv[i]);

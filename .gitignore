@@ -1,2 +1,6 @@
 build
 test
+*.o
+*.a
+ft_nm
+ft_otool

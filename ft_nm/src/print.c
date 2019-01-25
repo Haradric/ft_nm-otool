@@ -37,8 +37,11 @@ void		print_filename(const char *name, uint32_t arch)
 {
 	if (name)
 	{
+		if (!get_mode())
+			write(STDOUT_FILENO, "\n", 1);
 		write(STDOUT_FILENO, name, ft_strlen(name));
-		print_arch(arch);
+		if (get_mode())
+			print_arch(arch);
 		write(STDOUT_FILENO, ":\n", 2);
 	}
 }
@@ -107,5 +110,6 @@ void		print_symtab(t_symtab *tab, size_t size, int width)
 		tab = (void *)tab + sizeof(*tab);
 		i++;
 	}
-	write(STDOUT_FILENO, "\n", 1);
+	if (get_mode())
+		write(STDOUT_FILENO, "\n", 1);
 }

@@ -61,4 +61,7 @@ char			*htsu32(uint32_t n);
 char			*htsu64(uint64_t n);
 char			*genname(char *name, char *sub);
 
+int				get_mode(void);
+void			set_mode(int mode);
+
 #endif

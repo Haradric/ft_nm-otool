@@ -85,4 +85,7 @@ void			terminate_custom(const char *prefix, const char *str, \
 uint32_t		btlu32(uint32_t x);
 char			*genname(char *name, char *sub);
 
+int				get_mode(void);
+void			set_mode(int mode);
+
 #endif

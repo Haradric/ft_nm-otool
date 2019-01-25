@@ -33,4 +33,5 @@ target_sources(ft_nm
         ${CMAKE_CURRENT_LIST_DIR}/src/print.c
         ${CMAKE_CURRENT_LIST_DIR}/src/error.c
         ${CMAKE_CURRENT_LIST_DIR}/src/utils.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/mode.c
 )

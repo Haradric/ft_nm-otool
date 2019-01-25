@@ -24,7 +24,8 @@ FT_NM_SOURCES    =  ft_nm/src/main.c                   \
                     ft_nm/src/sort.c                   \
                     ft_nm/src/print.c                  \
                     ft_nm/src/error.c                  \
-                    ft_nm/src/utils.c
+                    ft_nm/src/utils.c                  \
+                    ft_nm/src/mode.c
 
 FT_OTOOL_SOURCES =  ft_otool/src/main.c                \
                     ft_otool/src/ft_otool.c            \
@@ -34,7 +35,8 @@ FT_OTOOL_SOURCES =  ft_otool/src/main.c                \
                     ft_otool/src/fat.c                 \
                     ft_otool/src/print.c               \
                     ft_otool/src/error.c               \
-                    ft_otool/src/utils.c
+                    ft_otool/src/utils.c               \
+                    ft_otool/src/mode.c
 
 FT_NM_OBJECTS    = $(FT_NM_SOURCES:.c=.o)
 FT_OTOOL_OBJECTS = $(FT_OTOOL_SOURCES:.c=.o)

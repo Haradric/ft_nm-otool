@@ -37,7 +37,8 @@ void		print_filename(const char *name, uint32_t arch)
 	if (name)
 	{
 		write(STDOUT_FILENO, name, ft_strlen(name));
-		print_arch(arch);
+		if (get_mode())
+			print_arch(arch);
 		write(STDOUT_FILENO, ":\n", 2);
 	}
 }

@@ -38,7 +38,8 @@ static void	print_text_sect(void *ptr, uint32_t size, uint32_t vm_addr)
 		vm_addr += step;
 		ptr += step;
 	}
-	write(STDOUT_FILENO, "\n", 1);
+	if (get_mode())
+		write(STDOUT_FILENO, "\n", 1);
 }
 
 static void	read_segment(void *ptr, struct segment_command *cmd)

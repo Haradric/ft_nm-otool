@@ -44,7 +44,7 @@ int			read_fat(const char *name, void *ptr, int multifile)
 		if (own && btlu32(arch[i].cputype) != HOSTARCH)
 			continue;
 		nm_read_file(name, ptr + btlu32(arch[i].offset), btlu32(arch[i].size),
-			multifile);
+			(get_mode()) ? multifile : 0);
 	}
 	return (0);
 }
